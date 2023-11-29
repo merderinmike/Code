@@ -3,25 +3,20 @@ const container = document.getElementById("items");
 fetch(url)
 	.then((response) => response.json())
 	.then((data) => {
-		for (let {
-			name,
-			price,
-			description,
-			imageUrl,
-			altTxt,
-			colors,
-		} of data) {
+		for (let { _id, name, description, imageUrl, altTxt } of data) {
 			container.innerHTML += `
-            <article>
-            <img
-                src="${imageUrl}"
-                alt="${altTxt}"
-            />
-            <h3 class="productName">${name}</h3>
-            <p class="productDescription">
-                ${description}
-            </p>
-        </article>
+			<a href="./product.html?id=${_id}">
+				<article>
+				<img
+					src="${imageUrl}"
+					alt="${altTxt}"
+				/>
+				<h3 class="productName">${name}</h3>
+				<p class="productDescription">
+					${description}
+				</p>
+			</article>
+		</a>
             `;
 		}
 	})
