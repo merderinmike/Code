@@ -1,9 +1,10 @@
 function Cart() {
-	let items = [...(getCartFromLocalStorage()?.items ?? [])];
+	let items = [...(getCartFromLocalStorage() ?? [])];
 
 	function getCartFromLocalStorage() {
+		const items = JSON.parse(localStorage.getItem("cart")).items;
 		// Get from LS
-		return JSON.parse(localStorage.getItem("cart"));
+		return createItemsWithUniqueValuesAndTotalQuantity(items);
 	}
 
 	function setCartToLocalStorage() {
@@ -12,22 +13,36 @@ function Cart() {
 	}
 
 	function addItem(newItem) {
-		items = [...items, newItem];
+		const existingItem = items.find(
+			(item) => item.id === newItem.id && item.color === newItem.color
+		);
+
+		if (existingItem) {
+			setItemCount(
+				existingItem.id,
+				existingItem.quantity + newItem.quantity,
+				newItem.color
+			);
+		} else {
+			items = [...items, newItem];
+		}
+
 		setCartToLocalStorage();
 		return items;
 	}
 
 	function getItems() {
-		return createItemsWithUniqueValuesAndTotalQuantity(items);
+		return items;
 	}
 
-	function setItemCount(id, quantity) {
-		const item = items.find((item) => item.id === id);
-		const newItem = quantity > 0 ? { ...item, quantity } : null;
+	function setItemCount(id, quantity, color) {
+		const index = items.findIndex(
+			(item) => item.id === id && item.color === color
+		);
 
-		const index = items.findIndex((item) => item.id === id);
 		if (index !== -1) {
-			items[index] = newItem;
+			items[index] = { ...items[index], quantity: parseInt(quantity) };
+
 			setCartToLocalStorage();
 			return items;
 		}
@@ -64,7 +79,7 @@ function createItemsWithUniqueValuesAndTotalQuantity(items) {
 
 		if (existingItem) {
 			const newItem = { ...existingItem };
-			newItem.quantity += item.quantity;
+			newItem.quantity += parseInt(item.quantity);
 			acc[acc.indexOf(existingItem)] = newItem;
 		} else {
 			acc.push({ ...item });

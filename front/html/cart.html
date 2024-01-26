@@ -105,14 +105,17 @@
 							</p>
 						</div>
 						<div class="cart__order">
-							<form method="get" class="cart__order__form">
+							<form
+								method="get"
+								class="cart__order__form"
+								id="cartForm"
+							>
 								<div class="cart__order__form__question">
 									<label for="firstName">First name: </label>
 									<input
 										type="text"
 										name="firstName"
 										id="firstName"
-										required
 									/>
 									<p id="firstNameErrorMsg">
 										<!-- this is an error message -->
@@ -124,7 +127,6 @@
 										type="text"
 										name="lastName"
 										id="lastName"
-										required
 									/>
 									<p id="lastNameErrorMsg"></p>
 								</div>
@@ -134,18 +136,12 @@
 										type="text"
 										name="address"
 										id="address"
-										required
 									/>
 									<p id="addressErrorMsg"></p>
 								</div>
 								<div class="cart__order__form__question">
 									<label for="city">City: </label>
-									<input
-										type="text"
-										name="city"
-										id="city"
-										required
-									/>
+									<input type="text" name="city" id="city" />
 									<p id="cityErrorMsg"></p>
 								</div>
 								<div class="cart__order__form__question">
@@ -154,7 +150,6 @@
 										type="email"
 										name="email"
 										id="email"
-										required
 									/>
 									<p id="emailErrorMsg"></p>
 								</div>

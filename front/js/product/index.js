@@ -6,7 +6,6 @@ const cart = new Cart();
 	const productId = new URLSearchParams(window.location.search).get("id");
 	const id = encodeURIComponent(productId);
 
-	// Sanitize id?
 	const url = `http://localhost:3000/api/products/${id}`;
 	const itemImg = document.getElementById("itemImg");
 	const productName = document.getElementById("title");
@@ -31,13 +30,15 @@ const addToCart = document.getElementById("addToCart");
 addToCart.addEventListener("click", () => {
 	const productId = new URLSearchParams(window.location.search).get("id");
 	const id = encodeURIComponent(productId);
-	const itemColor = document.getElementById("colors").value;
-	const itemQuantity = document.getElementById("quantity").value;
+	const itemColor = document.getElementById("colors");
+	const itemQuantity = document.getElementById("quantity");
 	const addedProduct = {
 		id: id,
-		color: itemColor,
-		quantity: itemQuantity,
+		color: itemColor.value,
+		quantity: parseInt(itemQuantity.value),
 	};
 	cart.addItem(addedProduct);
-	cart.logCart();
+	itemColor.selectedIndex = 0;
+	itemQuantity.value = "0";
+	alert("item added to cart!");
 });
