@@ -1,5 +1,5 @@
 import { Cart } from "./cartActions.mjs";
-import { renderResponse } from "../confirmation/index.js";
+// import { renderResponse } from "../confirmation/index.js";
 
 function isValidString(value) {
 	return !/\d/.test(value) && value.length > 1;
@@ -100,7 +100,11 @@ async function onSubmit(event) {
 				console.log("Form submitted successfully:", responseData);
 				window.location.href =
 					"http://localhost:5500/front/html/confirmation.html";
-				return responseData;
+				sessionStorage.setItem(
+					"orderId",
+					JSON.stringify(responseData.orderId)
+				);
+				localStorage.clear();
 			} else {
 				console.error("Form submission failed:", await response.text());
 			}

@@ -1,6 +1,5 @@
-import { responseData } from "../cart/cartForm.mjs";
-function renderResponse(responseData) {
-	document.getElementById("orderId").innerHTML = responseData.orderId;
+function renderOrderResponse() {
+	const orderIdFromSession = JSON.parse(sessionStorage.getItem("orderId"));
+	document.getElementById("orderId").innerHTML = orderIdFromSession;
 }
-renderResponse(responseData);
-// What is the best way to render the data?
+window.onload = renderOrderResponse();

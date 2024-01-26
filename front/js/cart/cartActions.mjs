@@ -2,7 +2,7 @@ function Cart() {
 	let items = [...(getCartFromLocalStorage() ?? [])];
 
 	function getCartFromLocalStorage() {
-		const items = JSON.parse(localStorage.getItem("cart")).items;
+		const items = JSON.parse(localStorage.getItem("cart"))?.items;
 		// Get from LS
 		return createItemsWithUniqueValuesAndTotalQuantity(items);
 	}
@@ -72,6 +72,8 @@ function Cart() {
 
 // Util
 function createItemsWithUniqueValuesAndTotalQuantity(items) {
+	if (!items) return;
+
 	const consolidatedItems = items.reduce((acc, item) => {
 		const existingItem = acc.find(
 			(x) => x.id === item.id && x.color === item.color
